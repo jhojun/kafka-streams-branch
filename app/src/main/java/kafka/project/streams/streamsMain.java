@@ -33,20 +33,14 @@ public class streamsMain {
         StreamsBuilder builder = new StreamsBuilder();
 
         KStream<String, String> eventFilter = builder.stream("streams-test7");
+        // 토폴로지 작성 코드 시작
+        // record를 조건에 따라 각각의 branch를 생성하여, 각 branch마다 처리하도록 구성
+        /* 코드 작성 */
+        //branch의 이름으로 각자 KStream마다 branch 할당 (접두사는 Named.as로, 접미사는 Branched.as로 지정)
+        /* 코드 작성 */
+        // 토폴로지 작성 부분 끝
 
-        Map<String, KStream<String, String>> branches = eventFilter.split(Named.as("Record-"))
-                .branch((key, value) -> value.toLowerCase().contains("error"), Branched.as("Error"))
-                .branch((key, value) -> value.toLowerCase().contains("warning"), Branched.as("Warning"))
-                .branch((key, value) -> value.equals("finish"), Branched.as("Finish"))
-                .branch((key, value) -> value.equals("start"), Branched.as("Start"))
-                .defaultBranch(Branched.as("Default"));
-
-        KStream<String, String> errorStream = branches.get("Record-Error");
-        KStream<String, String> warningStream = branches.get("Record-Warning");
-        KStream<String, String> defaultStream = branches.get("Record-Default");
-        KStream<String, String> finishStream = branches.get("Record-Finish");
-        KStream<String, String> startStream = branches.get("Record-Start");
-
+        //각각의 branch마다 wordcount, 로그 출력 등 필요한 작업을 수행
         errorStream.foreach((key, value) -> {
             counts[0]++; //record count
             counts[1]++; //error count
@@ -54,6 +48,7 @@ public class streamsMain {
             if (counts[0] % printInterval == 0)
                 System.out.println("Iteration : " + counts[0]);
         });
+        //branch마다 최종적으로 record를 보낼 topic을 선택
         errorStream.to("error-topic7");
         
         warningStream.foreach((key, value) -> {
