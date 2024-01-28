@@ -32,7 +32,7 @@ public class streamsMain {
 
         StreamsBuilder builder = new StreamsBuilder();
 
-        KStream<String, String> eventFilter = builder.stream("streams-test7");
+        KStream<String, String> eventFilter = builder.stream(/* producer 실습때 만들었던 본인의 topic 이름 */);
         // 토폴로지 작성 코드 시작
         // 조건에 따라 eventFilter를 split하여 각각의 branch를 생성하고, 각 branch마다 처리하도록 구성
         /* 코드 작성 */
