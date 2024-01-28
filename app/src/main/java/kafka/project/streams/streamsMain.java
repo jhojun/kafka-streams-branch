@@ -17,7 +17,7 @@ public class streamsMain {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "application");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, /* (본인 이름) */);
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "MN:9092,SN01:9092,SN02:9092,SN03:9092,SN04:9092,SN05:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,Serdes.String().getClass());
