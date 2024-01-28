@@ -34,7 +34,7 @@ public class streamsMain {
 
         KStream<String, String> eventFilter = builder.stream("streams-test7");
         // 토폴로지 작성 코드 시작
-        // record를 조건에 따라 각각의 branch를 생성하여, 각 branch마다 처리하도록 구성
+        // 조건에 따라 eventFilter를 split하여 각각의 branch를 생성하고, 각 branch마다 처리하도록 구성
         /* 코드 작성 */
         //branch의 이름으로 각자 KStream마다 branch 할당 (접두사는 Named.as로, 접미사는 Branched.as로 지정)
         /* 코드 작성 */
