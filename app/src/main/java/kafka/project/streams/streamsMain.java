@@ -49,7 +49,7 @@ public class streamsMain {
                 System.out.println("Iteration : " + counts[0]);
         });
         //branch마다 최종적으로 record를 보낼 topic을 선택
-        errorStream.to("error-topic7");
+        errorStream.to(/* (본인 이름)-error */);
         
         warningStream.foreach((key, value) -> {
             counts[0]++; //record count
@@ -58,7 +58,7 @@ public class streamsMain {
             if(counts[0] % printInterval == 0)
                 System.out.println("Iteration : " + counts[0]);
         });
-        warningStream.to("warning-topic7");
+        warningStream.to(/* (본인 이름)-warning */);
 
         defaultStream.foreach((key, value) -> {
             counts[0]++; //record count
