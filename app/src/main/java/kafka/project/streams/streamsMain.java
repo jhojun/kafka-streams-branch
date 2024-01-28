@@ -32,8 +32,10 @@ public class streamsMain {
 
         StreamsBuilder builder = new StreamsBuilder();
 
+        // eventFilter: 싱크 노드 구성
         KStream<String, String> eventFilter = builder.stream(/* producer 실습때 만들었던 본인의 topic 이름 */);
-        // 토폴로지 작성 코드 시작
+        
+        // 토폴로지 작성 코드 시작 (스트림 노드 구성)
         // 조건에 따라 eventFilter를 split하여 각각의 branch를 생성하고, 각 branch마다 처리하도록 구성
         /* 코드 작성 */
         //branch의 이름으로 각자 KStream마다 branch 할당 (접두사는 Named.as로, 접미사는 Branched.as로 지정)
@@ -48,7 +50,7 @@ public class streamsMain {
             if (counts[0] % printInterval == 0)
                 System.out.println("Iteration : " + counts[0]);
         });
-        //branch마다 최종적으로 record를 보낼 topic을 선택
+        //branch마다 최종적으로 record를 보낼 topic을 선택 (싱크 노드 구성)
         errorStream.to(/* (본인 이름)-error */);
         
         warningStream.foreach((key, value) -> {
